@@ -2,16 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_1"
+    android:background="@drawable/background_3"
     android:padding="16dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/imageView"
+        android:layout_marginTop="100dp"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="500dp"
         android:layout_alignParentTop="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/tehran_1"
         style="@style/ShapeableImageViewStyle"
         />
 
@@ -26,4 +26,27 @@
         android:layout_below="@id/imageView"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@id/difficultyTextView"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="back"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/difficultyTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Difficulty:"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+         />
 </RelativeLayout>

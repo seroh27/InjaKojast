@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_2"
     android:padding="16dp">
 
     <TextView
@@ -11,35 +12,55 @@
         android:text="Select Difficulty"
         android:textSize="40sp"
         android:textStyle="bold"
+        android:layout_marginTop="55dp"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="32dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/easyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Easy"
-        android:textSize="40dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/cardview_dark_background"
         android:layout_below="@id/titleTextView"
         android:layout_marginTop="16dp"
+        android:textSize="30dp"
         android:layout_centerHorizontal="true" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/cardview_dark_background"
+        android:text="back"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/mediumButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Medium"
-        android:textSize="40dp"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/cardview_dark_background"
         android:layout_below="@id/easyButton"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/hardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hard"
-        android:textSize="40dp"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="30dp"
+        android:backgroundTint="@color/cardview_dark_background"
         android:layout_below="@id/mediumButton"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true" />

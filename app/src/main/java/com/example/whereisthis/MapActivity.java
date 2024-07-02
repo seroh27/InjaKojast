@@ -1,6 +1,10 @@
 package com.example.whereisthis;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebSettings;
@@ -16,26 +20,52 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
+import java.util.Random;
+import android.util.Log;
+public class MapActivity extends Activity {
 
     private WebView webView;
     private RelativeLayout layout;
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
+        String difficulty;
+        String cityName;
+        int imageIndex;
+        difficulty = getDifficulty();
         webView = findViewById(R.id.webView);
-        layout = findViewById(R.id.rootLayout); // This references the root RelativeLayout
-
+        layout = findViewById(R.id.rootLayout);
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/map.html");
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            cityName = getCityName();
+        } else {
+            cityName = null;
+            imageIndex = 0;
+        }
+        Button backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> {
+            Intent intent1 = new Intent(MapActivity.this, ShowImageActivity.class);
+            intent1.putExtra("FROM_ACTIVITY","MapActivity");
+            startActivity(intent1);
+        });
         addCityButtons();
+
+    }
+    private String getDifficulty() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("DIFFICULTY", "Easy");
+    }
+    private String getCityName() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("CITYNAME", "Easy");
     }
     private void addCityButtons() {
         int[][] cityCoordinates = {
