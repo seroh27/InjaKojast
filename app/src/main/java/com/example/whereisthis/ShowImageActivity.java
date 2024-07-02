@@ -38,7 +38,7 @@ public class ShowImageActivity extends Activity {
             imageIndex = Integer.parseInt(getImageIndex());
             Log.e("Index",String.valueOf(imageIndex));
         } else {
-            String[] cities = {"tehran", "fars", "isfahan"};
+            String[] cities = {"Tehran", "Fars", "Isfahan"};
             int[] indices = {1,2};
             Random random = new Random();
             cityName = cities[random.nextInt(cities.length)];

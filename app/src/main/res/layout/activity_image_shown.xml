@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_3"
     android:padding="16dp">
 
@@ -14,39 +16,66 @@
         android:scaleType="centerCrop"
         style="@style/ShapeableImageViewStyle"
         />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/goButton"
-        android:layout_width="wrap_content"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Go"
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:layout_below="@id/imageView"
-        android:layout_marginTop="16dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="28dp"
 
+        android:id="@+id/card_view2"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="28dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Figured where it is?"
+                android:layout_marginBottom="20dp"
+                android:textColor="@color/my_primary"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/goButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Go To Map"
+                app:cornerRadius="32dp"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
         android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="Back"
+        app:cornerRadius="32dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:paddingStart="20dp"
         android:layout_height="wrap_content"
-
-        android:layout_marginEnd="40dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@id/difficultyTextView"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:text="back"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/difficultyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Difficulty:"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-         />
+        android:layout_alignParentTop="true"
+        app:cardCornerRadius="28dp"
+        android:padding="70dp"
+        android:layout_marginLeft="110dp"
+        android:layout_marginRight="70dp"
+        android:id="@+id/card_view"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+                <TextView
+                    android:id="@+id/difficultyTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Difficulty:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:layout_centerHorizontal="true"
+                     />
+            </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

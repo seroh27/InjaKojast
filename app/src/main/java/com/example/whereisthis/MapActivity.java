@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -23,11 +24,16 @@ import androidx.core.view.WindowInsetsCompat;
 import java.util.Objects;
 import java.util.Random;
 import android.util.Log;
+
+import com.google.android.material.color.utilities.Score;
+
 public class MapActivity extends Activity {
 
     private WebView webView;
     private RelativeLayout layout;
-
+    private  TextView ReportText;
+    private TextView ScoreText;
+    private TextView CorrectProvince;
     @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,9 @@ public class MapActivity extends Activity {
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/map.html");
+        ReportText = findViewById(R.id.ReportText);
+        ScoreText = findViewById(R.id.ScoreText);
+        CorrectProvince = findViewById(R.id.CorrectProvince);
         Intent intent = getIntent();
         if (intent != null) {
             cityName = getCityName();
@@ -56,7 +65,7 @@ public class MapActivity extends Activity {
             intent1.putExtra("FROM_ACTIVITY","MapActivity");
             startActivity(intent1);
         });
-        addCityButtons();
+        addCityButtons(cityName);
 
     }
     private String getDifficulty() {
@@ -67,7 +76,7 @@ public class MapActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         return sharedPref.getString("CITYNAME", "Easy");
     }
-    private void addCityButtons() {
+    private void addCityButtons(String correctCity) {
         int[][] cityCoordinates = {
                 {360, 600}, //tehran
                 {410, 1100},//fars
@@ -130,7 +139,7 @@ public class MapActivity extends Activity {
             cityButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onCityClick(cityName);
+                    onCityClick(cityName,correctCity);
                 }
             });
 
@@ -138,10 +147,15 @@ public class MapActivity extends Activity {
         }
     }
 
-    private void onCityClick(String city) {
-        // Handle city click
-        Toast.makeText(this, "City clicked: " + city, Toast.LENGTH_SHORT).show();
-        // You can navigate to another activity or display more information here
+    private void onCityClick(String city,String correctCity) {
+        if(Objects.equals(city,correctCity)){
+            ReportText.setText("Correct Answer!!");
+            CorrectProvince.setText("Correct Province is:" + correctCity);
+        }else{
+            ReportText.setText("Wrong Answer!!");
+            CorrectProvince.setText("Correct Province is:" + correctCity);
+        }
+
     }
 
 }

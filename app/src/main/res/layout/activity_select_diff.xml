@@ -2,42 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/background_2"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/titleTextView"
-        android:layout_width="wrap_content"
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:paddingStart="20dp"
         android:layout_height="wrap_content"
-        android:text="Select Difficulty"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:layout_marginTop="55dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="32dp" />
+        android:layout_alignParentTop="true"
+        app:cardCornerRadius="28dp"
+        android:padding="70dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="70dp"
+        android:layout_marginRight="80dp"
+
+        android:id="@+id/card_view"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Difficulty:"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/easyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Easy"
+        app:cornerRadius="28dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:layout_below="@id/titleTextView"
+        android:layout_below="@id/card_view"
         android:layout_marginTop="16dp"
         android:textSize="30dp"
         android:layout_centerHorizontal="true" />
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/cardview_dark_background"
-        android:text="back"
-        android:textColor="@android:color/white"
-        android:textStyle="bold" />
+        android:layout_height="60dp"
+        android:text="Back"
+        app:cornerRadius="32dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/mediumButton"
@@ -45,9 +63,9 @@
         android:layout_height="wrap_content"
         android:text="Medium"
         android:textSize="30dp"
+        app:cornerRadius="28dp"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:backgroundTint="@color/cardview_dark_background"
         android:layout_below="@id/easyButton"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true" />
@@ -60,7 +78,7 @@
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:textSize="30dp"
-        android:backgroundTint="@color/cardview_dark_background"
+        app:cornerRadius="28dp"
         android:layout_below="@id/mediumButton"
         android:layout_marginTop="16dp"
         android:layout_centerHorizontal="true" />
