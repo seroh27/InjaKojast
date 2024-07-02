@@ -1,0 +1,14 @@
+<resources>
+
+    <style name="ShapeableImageViewStyle">
+        <item name="shapeAppearanceOverlay">@style/ShapeableImageCorners</item>
+        <item name="strokeColor">@color/black</item>
+        <item name="strokeWidth">2dp</item>
+    </style>
+
+    <style name="ShapeableImageCorners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
+    </style>
+
+</resources>
