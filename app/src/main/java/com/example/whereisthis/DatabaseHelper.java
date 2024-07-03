@@ -1,5 +1,6 @@
 package com.example.whereisthis;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -44,7 +45,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long result = db.insert(TABLE_NAME, null, contentValues);
         return result != -1;
     }
+    public void saveHighScore(String username, int score) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_USERNAME, username);
+        values.put(COL_SCORE, score);
 
+        db.insertWithOnConflict(TABLE_NAME, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+        db.close();
+    }
+    public int getHighScore(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{COL_SCORE},
+                COL_USERNAME + "=?", new String[]{username},
+                null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            @SuppressLint("Range") int highScore = cursor.getInt(cursor.getColumnIndex(COL_SCORE));
+            cursor.close();
+            return highScore;
+        }
+        return 0;
+    }
     public boolean isUsernameTaken(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COL_USERNAME + " = ?";

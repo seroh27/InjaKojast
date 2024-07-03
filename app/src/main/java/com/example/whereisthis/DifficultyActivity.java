@@ -17,7 +17,7 @@ public class DifficultyActivity extends Activity {
         Button easyButton = findViewById(R.id.easyButton);
         Button mediumButton = findViewById(R.id.mediumButton);
         Button hardButton = findViewById(R.id.hardButton);
-
+        saveCount(String.valueOf(0));
         View.OnClickListener listener = v -> {
             String difficulty = "";
             if (v.getId() == R.id.easyButton) {
@@ -32,7 +32,12 @@ public class DifficultyActivity extends Activity {
             Intent intent = new Intent(DifficultyActivity.this, ShowImageActivity.class);
             startActivity(intent);
         };
-
+        Button backButton = findViewById(R.id.back);
+        backButton.setOnClickListener(v -> {
+            Intent intent1 = new Intent(DifficultyActivity.this, LoginPage.class);
+            intent1.putExtra("FROM_ACTIVITY", "MapActivity");
+            startActivity(intent1);
+        });
         easyButton.setOnClickListener(listener);
         mediumButton.setOnClickListener(listener);
         hardButton.setOnClickListener(listener);
@@ -47,6 +52,12 @@ public class DifficultyActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("SCORE", String.valueOf(0));
+        editor.apply();
+    }
+    private void saveCount(String count) {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("COUNT", count);
         editor.apply();
     }
 }

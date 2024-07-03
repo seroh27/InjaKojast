@@ -35,9 +35,11 @@ public class LoginPage extends Activity {
             String username = editTextUsername.getText().toString().trim();
             if (!username.isEmpty()) {
                 saveUserName(username);
-                int highScore = getUserHighScore(username);
-                saveHighScore(highScore);
                 boolean insertedToDb = databaseHelper.addUser(username, 0);
+                int highScore = databaseHelper.getHighScore(username);
+                System.out.println("from db" + highScore);
+                saveHighScore(highScore);
+
                 if (insertedToDb) {
                     Toast.makeText(LoginPage.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 } else {
@@ -67,17 +69,5 @@ public class LoginPage extends Activity {
         editor.apply();
     }
 
-    @SuppressLint("Range")
-    private int getUserHighScore(String username) {
-        SQLiteDatabase db = databaseHelper.getReadableDatabase();
-        String query = "SELECT " + databaseHelper.getColScore() + " FROM " + databaseHelper.getTableName() + " WHERE " + databaseHelper.getColUsername() + " = ?";
-        Cursor cursor = db.rawQuery(query, new String[]{username});
-        int highScore = 0;
-        if (cursor.moveToFirst()) {
-            highScore = cursor.getInt(cursor.getColumnIndex(databaseHelper.getColScore()));
-        }
-        cursor.close();
 
-        return highScore;
-    }
 }

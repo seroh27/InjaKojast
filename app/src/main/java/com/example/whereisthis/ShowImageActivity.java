@@ -17,12 +17,18 @@ import java.util.Random;
 public class ShowImageActivity extends Activity {
     private ImageView imageView;
     private TextView difficultyTextView;
-
+    int count;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_shown);
-
+        count = Integer.parseInt(getCount());
+        count+=1;
+        if(count == 6){
+            Intent intent1 = new Intent(ShowImageActivity.this, GameOverActivity.class);
+            startActivity(intent1);
+        }
+        saveCount(String.valueOf(count));
         // Initialize views
         imageView = findViewById(R.id.imageView);
         difficultyTextView = findViewById(R.id.difficultyTextView);
@@ -86,5 +92,15 @@ public class ShowImageActivity extends Activity {
     private String getCityName() {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         return sharedPref.getString("CITYNAME", "Easy");
+    }
+    private void saveCount(String count) {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("COUNT", count);
+        editor.apply();
+    }
+    private String getCount() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("COUNT", "Easy");
     }
 }

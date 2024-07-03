@@ -26,6 +26,7 @@ public class MapActivity extends Activity {
     private TextView ScoreText;
     private TextView CorrectProvince;
     private Button nextSiteButton;
+    private DatabaseHelper databaseHelper;
 
     @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
@@ -38,6 +39,8 @@ public class MapActivity extends Activity {
         ReportText = findViewById(R.id.ReportText);
         ScoreText = findViewById(R.id.ScoreText);
         CorrectProvince = findViewById(R.id.CorrectProvince);
+
+        databaseHelper = new DatabaseHelper(this);
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -184,7 +187,9 @@ public class MapActivity extends Activity {
         editor.remove("HIGHSCORE");
         editor.putString("HIGHSCORE", String.valueOf(highScore));
         editor.apply();
+        databaseHelper.saveHighScore(getUserName(),Integer.parseInt(getHighScore()));
     }
+
     private String getHighScore() {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         return sharedPref.getString("HIGHSCORE", "Easy");

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_2"
+    android:padding="16dp">
+
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="Back"
+        app:cornerRadius="32dp"/>
+    <TextView
+        android:id="@+id/ScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SCORE: 0"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@id/here"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        />
+    <TextView
+        android:id="@+id/here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Here Is your score:"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_below="@id/tnxText"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/tnxText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have played 5 rounds"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/thanktxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thank you for playing"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:layout_marginTop="100dp"
+        android:layout_below="@id/tnxText"
+        android:layout_centerHorizontal="true"
+        />
+
+</RelativeLayout>
