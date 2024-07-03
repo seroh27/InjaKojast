@@ -125,10 +125,9 @@ public class MapActivity extends Activity {
     @SuppressLint("SetTextI18n")
     private void onCityClick(String city, String correctCity) {
         disableAllCityButtons();
-
+        int highScore = Integer.parseInt(getHighScore());
+        int score = Integer.parseInt(getScore());
         if (Objects.equals(city, correctCity)) {
-            int highScore = Integer.parseInt(getHighScore());
-            int score = Integer.parseInt(getScore());
             score+=5;
             Log.d("MAP ACTIVITY", "score" + score);
             Log.d("MAP ACTIVITY", "highscore" + highScore);
@@ -136,14 +135,14 @@ public class MapActivity extends Activity {
                 highScore = score;
                 saveHighScore(highScore);
             }
+            saveScore(score);
             Log.d("MAP ACTIVITY", "im here" );
-            ScoreText.setText("SCORE: " + score);
             ReportText.setText("Correct Answer!! HIGH SCORE: " + highScore);
         } else {
-            ReportText.setText("Wrong Answer!!");
+            ReportText.setText("Wrong Answer!! HIGH SCORE: " + highScore);
         }
         CorrectProvince.setText("Correct Province is: " + correctCity);
-
+        ScoreText.setText("SCORE: " + score);
         addNextSiteButton();
     }
 
@@ -182,7 +181,8 @@ public class MapActivity extends Activity {
     private void saveHighScore(int highScore) {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("HIGHSCORE", highScore);
+        editor.remove("HIGHSCORE");
+        editor.putString("HIGHSCORE", String.valueOf(highScore));
         editor.apply();
     }
     private String getHighScore() {
@@ -192,5 +192,12 @@ public class MapActivity extends Activity {
     private String getScore() {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         return sharedPref.getString("SCORE", "Easy");
+    }
+    private void saveScore(int score) {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove("SCORE");
+        editor.putString("SCORE", String.valueOf(score));
+        editor.apply();
     }
 }
