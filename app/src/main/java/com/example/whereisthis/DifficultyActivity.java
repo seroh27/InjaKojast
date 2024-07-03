@@ -28,6 +28,7 @@ public class DifficultyActivity extends Activity {
                 difficulty = "Hard";
             }
             saveDifficulty(difficulty);
+            saveScore();
             Intent intent = new Intent(DifficultyActivity.this, ShowImageActivity.class);
             startActivity(intent);
         };
@@ -40,6 +41,12 @@ public class DifficultyActivity extends Activity {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("DIFFICULTY", userName);
+        editor.apply();
+    }
+    private void saveScore() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("SCORE", String.valueOf(0));
         editor.apply();
     }
 }

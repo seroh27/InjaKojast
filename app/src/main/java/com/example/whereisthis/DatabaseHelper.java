@@ -35,7 +35,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean addUser(String username, int score) {
         if (isUsernameTaken(username)) {
-            return false;
+            return true;
         }
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -58,5 +58,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
+    }
+
+    // Add getter methods for table name and column names
+    public String getTableName() {
+        return TABLE_NAME;
+    }
+
+    public String getColScore() {
+        return COL_SCORE;
+    }
+
+    public String getColUsername() {
+        return COL_USERNAME;
     }
 }

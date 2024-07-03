@@ -13,111 +13,93 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.Objects;
-import java.util.Random;
 import android.util.Log;
-
-import com.google.android.material.color.utilities.Score;
-
 public class MapActivity extends Activity {
 
     private WebView webView;
     private RelativeLayout layout;
-    private  TextView ReportText;
+    private TextView ReportText;
     private TextView ScoreText;
     private TextView CorrectProvince;
+    private Button nextSiteButton;
+
     @SuppressLint({"MissingInflatedId", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        String difficulty;
-        String cityName;
-        int imageIndex;
-        difficulty = getDifficulty();
+
         webView = findViewById(R.id.webView);
         layout = findViewById(R.id.rootLayout);
+        ReportText = findViewById(R.id.ReportText);
+        ScoreText = findViewById(R.id.ScoreText);
+        CorrectProvince = findViewById(R.id.CorrectProvince);
+
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.loadUrl("file:///android_asset/map.html");
-        ReportText = findViewById(R.id.ReportText);
-        ScoreText = findViewById(R.id.ScoreText);
-        CorrectProvince = findViewById(R.id.CorrectProvince);
-        Intent intent = getIntent();
-        if (intent != null) {
-            cityName = getCityName();
-        } else {
-            cityName = null;
-            imageIndex = 0;
-        }
+
+        String cityName = getCityName();
+
         Button backButton = findViewById(R.id.back);
         backButton.setOnClickListener(v -> {
             Intent intent1 = new Intent(MapActivity.this, ShowImageActivity.class);
-            intent1.putExtra("FROM_ACTIVITY","MapActivity");
+            intent1.putExtra("FROM_ACTIVITY", "MapActivity");
             startActivity(intent1);
         });
-        addCityButtons(cityName);
 
+        addCityButtons(cityName);
     }
-    private String getDifficulty() {
-        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
-        return sharedPref.getString("DIFFICULTY", "Easy");
-    }
+
     private String getCityName() {
         SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
-        return sharedPref.getString("CITYNAME", "Easy");
+        return sharedPref.getString("CITYNAME", "Tehran");
     }
+
     private void addCityButtons(String correctCity) {
         int[][] cityCoordinates = {
-                {360, 600}, //tehran
-                {410, 1100},//fars
-                {550, 850},//yazd
-                {380, 800},//isfahan
-                {500, 610},//semnan
-                {700, 610},//kh razavi
-                {740, 900},//south khorasan
-                {650, 1050},//Kerman
-                {810, 1200},//sistan baluchestan
-                {600, 1250},//Hormozgan
-                {510, 480},//Golestan
-                {620, 450},//north khorasan
-                {380, 530},//Mazandaran
-                {320, 1130},//Mazandaran
-                {330, 670},//Qom
-                {5, 440},//West Azerbaijan
-                {90, 420},//East Azerbaijan
-                {170, 360},//Ardabil
-                {200, 930},//Khuzistan
-                {180, 780},//Lorestan
-                {100, 600},//Kurdistan
-                {80, 700},//Kermanshah
-                {90, 800},//Ilam
-                {290, 900},//"Charmahal Bakhtiari"
-                {300, 970},//"Kohgiluyeh and Boyer-Ahmad"
-                {180, 520},//Zanjan
-                {230, 450},//Gilan
-                {260, 550},//Qazvin
-                {260,700},//Markazi
-                {180,670},//Hamedan
+                {360, 600}, // Tehran
+                {410, 1100}, // Fars
+                {550, 850}, // Yazd
+                {380, 800}, // Isfahan
+                {500, 610}, // Semnan
+                {700, 610}, // Khorasan Razavi
+                {740, 900}, // South Khorasan
+                {650, 1050}, // Kerman
+                {810, 1200}, // Sistan Baluchestan
+                {600, 1250}, // Hormozgan
+                {510, 480}, // Golestan
+                {620, 450}, // North Khorasan
+                {380, 530}, // Mazandaran
+                {320, 1130}, // Bushehr
+                {330, 670}, // Qom
+                {5, 440}, // West Azerbaijan
+                {90, 420}, // East Azerbaijan
+                {170, 360}, // Ardabil
+                {200, 930}, // Khuzistan
+                {180, 780}, // Lorestan
+                {100, 600}, // Kurdistan
+                {80, 700}, // Kermanshah
+                {90, 800}, // Ilam
+                {290, 900}, // Charmahal Bakhtiari
+                {300, 970}, // Kohgiluyeh and Boyer-Ahmad
+                {180, 520}, // Zanjan
+                {230, 450}, // Gilan
+                {260, 550}, // Qazvin
+                {260, 700}, // Markazi
+                {180, 670}, // Hamedan
         };
 
-        String[] cityNames = {"Tehran", "Fars","Yazd","Isfahan"
-                ,"Semnan","Khorasan Razavi",
-                "South Khorasan","Kerman",
-                "Sistan Baluchestan","Hormozgan"
-                ,"Golestan","North Khorasan","Mazandaran","Bushehr",
-                "Qom","West Azerbaijan","East Azerbaijan","Ardabil",
-                "Khuzistan","Lorestan","Kurdistan","Kermanshah","Ilam","Charmahal Bakhtiari",
-        "Kohgiluyeh and Boyer-Ahmad","Zanjan","Gilan","Qazvin","Markazi","Hamedan"};
+        String[] cityNames = {"Tehran", "Fars", "Yazd", "Isfahan", "Semnan", "Khorasan Razavi",
+                "South Khorasan", "Kerman", "Sistan Baluchestan", "Hormozgan", "Golestan", "North Khorasan",
+                "Mazandaran", "Bushehr", "Qom", "West Azerbaijan", "East Azerbaijan", "Ardabil", "Khuzistan",
+                "Lorestan", "Kurdistan", "Kermanshah", "Ilam", "Charmahal Bakhtiari", "Kohgiluyeh and Boyer-Ahmad",
+                "Zanjan", "Gilan", "Qazvin", "Markazi", "Hamedan"};
 
         for (int i = 0; i < cityCoordinates.length; i++) {
             int[] coord = cityCoordinates[i];
@@ -132,30 +114,83 @@ public class MapActivity extends Activity {
             cityButton.setLayoutParams(params);
             cityButton.setBackgroundResource(R.drawable.circular_button);
             cityButton.setText(cityName);
-//            cityButton.setBackgroundColor(android.graphics.Color.RED);
             cityButton.setTextColor(android.graphics.Color.WHITE);
             cityButton.setTextSize(7);
 
-            cityButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onCityClick(cityName,correctCity);
-                }
-            });
-
+            cityButton.setOnClickListener(v -> onCityClick(cityName, correctCity));
             layout.addView(cityButton);
         }
     }
 
-    private void onCityClick(String city,String correctCity) {
-        if(Objects.equals(city,correctCity)){
-            ReportText.setText("Correct Answer!!");
-            CorrectProvince.setText("Correct Province is:" + correctCity);
-        }else{
-            ReportText.setText("Wrong Answer!!");
-            CorrectProvince.setText("Correct Province is:" + correctCity);
-        }
+    @SuppressLint("SetTextI18n")
+    private void onCityClick(String city, String correctCity) {
+        disableAllCityButtons();
 
+        if (Objects.equals(city, correctCity)) {
+            int highScore = Integer.parseInt(getHighScore());
+            int score = Integer.parseInt(getScore());
+            score+=5;
+            Log.d("MAP ACTIVITY", "score" + score);
+            Log.d("MAP ACTIVITY", "highscore" + highScore);
+            if(score > highScore) {
+                highScore = score;
+                saveHighScore(highScore);
+            }
+            Log.d("MAP ACTIVITY", "im here" );
+            ScoreText.setText("SCORE: " + score);
+            ReportText.setText("Correct Answer!! HIGH SCORE: " + highScore);
+        } else {
+            ReportText.setText("Wrong Answer!!");
+        }
+        CorrectProvince.setText("Correct Province is: " + correctCity);
+
+        addNextSiteButton();
     }
 
+    private void disableAllCityButtons() {
+        for (int i = 0; i < layout.getChildCount(); i++) {
+            View child = layout.getChildAt(i);
+            if (child instanceof Button && child != findViewById(R.id.back)) {
+                child.setEnabled(false);
+            }
+        }
+    }
+
+    private void addNextSiteButton() {
+        nextSiteButton = new MaterialButton(this);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        params.bottomMargin = 350;
+        nextSiteButton.setLayoutParams(params);
+        nextSiteButton.setText("Next Site");
+        nextSiteButton.setTextColor(android.graphics.Color.WHITE);
+        nextSiteButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MapActivity.this, ShowImageActivity.class); // Replace NextActivity.class with your actual next activity
+            startActivity(intent);
+        });
+
+        layout.addView(nextSiteButton);
+    }
+
+    private String getUserName() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("USERNAME", "Easy");
+    }
+    private void saveHighScore(int highScore) {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putInt("HIGHSCORE", highScore);
+        editor.apply();
+    }
+    private String getHighScore() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("HIGHSCORE", "Easy");
+    }
+    private String getScore() {
+        SharedPreferences sharedPref = getSharedPreferences("WhereIsThis", Context.MODE_PRIVATE);
+        return sharedPref.getString("SCORE", "Easy");
+    }
 }
